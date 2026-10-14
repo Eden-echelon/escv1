@@ -1003,6 +1003,137 @@
     }
       
   </style>
+
+  <style>
+  /* ============================================================
+     TABLE FIT & COMPACT — no column hiding, everything visible
+     Centers data, kills horizontal scroll on every viewport
+     ============================================================ */
+
+  .table-container {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  table {
+    width: 100% !important;
+    min-width: 0 !important;          /* the real fix — was 400px */
+    table-layout: auto;               /* browser sizes columns to content */
+    border-collapse: collapse !important;
+    font-size: clamp(0.55rem, 2vw, 0.9rem);
+    margin: 0 auto;                   /* center the table itself */
+  }
+
+  /* Cells: centered, tight, wrapping */
+  th, td {
+    padding: 0.35rem 0.35rem !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    line-height: 1.25 !important;
+    font-size: inherit !important;
+    hyphens: auto;
+  }
+
+  th {
+    font-size: clamp(0.5rem, 1.9vw, 0.85rem) !important;
+    letter-spacing: 0.3px !important;
+    font-weight: 700 !important;
+  }
+
+  /* First column reads best centered here, keep it */
+  th:first-child, td:first-child {
+    text-align: center !important;
+  }
+
+  /* Long-text cells: left-align only the ones that hold sentences */
+  #match-summary table td:nth-child(6) {   /* INTEL */
+    text-align: left !important;
+    font-size: 0.88em !important;
+  }
+
+  /* Colspan paused rows stay centered and legible */
+  .paused-row td {
+    text-align: center !important;
+    padding: 0.5rem 0.3rem !important;
+  }
+
+  /* ============================================================
+     PER-TABLE COLUMN PRIORITY (auto layout, but we hint widths)
+     ============================================================ */
+
+  /* League: TEAM wide, stats narrow */
+  #league-table table th:first-child,
+  #league-table table td:first-child { white-space: nowrap; }
+
+  /* Schedule: dates want to stay on one line if possible */
+  #schedule table th:nth-child(2),
+  #schedule table td:nth-child(2) { white-space: nowrap; }
+
+  /* Summary: DA code + result stay compact */
+  #match-summary table th:nth-child(1),
+  #match-summary table td:nth-child(1),
+  #match-summary table th:nth-child(2),
+  #match-summary table td:nth-child(2) { white-space: nowrap; }
+
+  /* Scorers/assisters: numbers stay on one line */
+  #scorers table td:nth-child(2),
+  #assisters table td:nth-child(2) { white-space: nowrap; }
+
+  /* ============================================================
+     RESPONSIVE TIGHTENING — shrink to fit, never hide
+     ============================================================ */
+
+  /* Tablet */
+  @media (max-width: 991px) {
+    th, td { padding: 0.3rem 0.3rem !important; }
+    table  { font-size: 0.75rem; }
+    th     { font-size: 0.68rem !important; }
+  }
+
+  /* Mobile Large */
+  @media (max-width: 575px) {
+    th, td { padding: 0.28rem 0.22rem !important; }
+    table  { font-size: 0.68rem; }
+    th     { font-size: 0.6rem !important; letter-spacing: 0 !important; }
+  }
+
+  /* Mobile Medium */
+  @media (max-width: 424px) {
+    th, td { padding: 0.24rem 0.18rem !important; }
+    table  { font-size: 0.62rem; }
+    th     { font-size: 0.55rem !important; }
+  }
+
+  /* Mobile Small */
+  @media (max-width: 374px) {
+    th, td { padding: 0.2rem 0.14rem !important; }
+    table  { font-size: 0.56rem; }
+    th     { font-size: 0.5rem !important; }
+  }
+
+  /* Ultra small */
+  @media (max-width: 319px) {
+    th, td { padding: 0.16rem 0.1rem !important; }
+    table  { font-size: 0.5rem; }
+    th     { font-size: 0.46rem !important; }
+  }
+
+  /* Desktop breathing room */
+  @media (min-width: 768px) {
+    th, td { padding: 0.5rem 0.6rem !important; }
+    table  { font-size: 0.85rem; }
+    th     { font-size: 0.8rem !important; }
+  }
+
+  @media (min-width: 1200px) {
+    th, td { padding: 0.6rem 0.8rem !important; }
+    table  { font-size: 0.9rem; }
+    th     { font-size: 0.85rem !important; }
+  }
+</style>
   
 </head>
   
