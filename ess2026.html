@@ -1004,11 +1004,7 @@
       
   </style>
 
-  <style>
-  /* ============================================================
-     TABLE FIT & COMPACT — no column hiding, everything visible
-     Centers data, kills horizontal scroll on every viewport
-     ============================================================ */
+  <style
 
   .table-container {
     display: block !important;
@@ -1060,10 +1056,6 @@
     padding: 0.5rem 0.3rem !important;
   }
 
-  /* ============================================================
-     PER-TABLE COLUMN PRIORITY (auto layout, but we hint widths)
-     ============================================================ */
-
   /* League: TEAM wide, stats narrow */
   #league-table table th:first-child,
   #league-table table td:first-child { white-space: nowrap; }
@@ -1081,10 +1073,6 @@
   /* Scorers/assisters: numbers stay on one line */
   #scorers table td:nth-child(2),
   #assisters table td:nth-child(2) { white-space: nowrap; }
-
-  /* ============================================================
-     RESPONSIVE TIGHTENING — shrink to fit, never hide
-     ============================================================ */
 
   /* Tablet */
   @media (max-width: 991px) {
@@ -1168,7 +1156,7 @@
         <div class="menu-item" onclick="document.getElementById('league-table').scrollIntoView({behavior:'smooth'})">📊 LEAGUE</div>
         <div class="menu-item" onclick="document.getElementById('schedule').scrollIntoView({behavior:'smooth'})">📅 SCHEDULE</div>
         <div class="menu-item" onclick="document.getElementById('match-summary').scrollIntoView({behavior:'smooth'})">📋 SUMMARY</div>
-        <div class="menu-item" onclick="document.getElementById('scorers').scrollIntoView({behavior:'smooth'})">🎯 SNIPERS</div>
+        <div class="menu-item" onclick="document.getElementById('scorers').scrollIntoView({behavior:'smooth'})">⚽ SCORERS</div>
         <div class="menu-item" onclick="document.getElementById('teams').scrollIntoView({behavior:'smooth'})">👥 TEAMS</div>
         <div class="menu-item" onclick="document.getElementById('awards').scrollIntoView({behavior:'smooth'})">🏅 AWARDS</div>
       </div>
@@ -1326,7 +1314,7 @@
     </section>
 
     <section id="schedule" class="ops-card">
-      <div class="section-command"><h2>OPERATION SCHEDULE · 38 GAMES</h2></div>
+      <div class="section-command"><h2>OPERATION SCHEDULE · INTERRUPTED SEASON [hence shortened]</h2></div>
       
       <div class="color-key" style="display:flex; gap:1rem; margin-bottom:1rem; flex-wrap:wrap;">
         
@@ -1348,7 +1336,7 @@
         
       </div>
       <div class="table-container">
-        <table><thead><tr><th>DIRECT ACTION</th><th>DATE (14:00)</th><th>LOCATION</th></tr></thead>
+        <table><thead><tr><th>GAME</th><th>DATE (14:00)</th><th>LOCATION</th></tr></thead>
         <tbody id="schedule-tbody">
 
           <tr>
@@ -1361,25 +1349,25 @@
   <tbody>
     
     <!-- COMPLETED: 5 games -->
-    <tr class="completed-row"><td>DA01</td><td>01 Mar 2026</td><td>HARBOUR</td><td>✅</td></tr>
-    <tr class="completed-row"><td>DA02</td><td>08 Mar 2026</td><td>HARBOUR</td><td>✅</td></tr>
-    <tr class="completed-row"><td>DA03</td><td>15 Mar 2026</td><td>HARBOUR</td><td>✅</td></tr>
-    <tr class="completed-row"><td>DA04</td><td>22 Mar 2026</td><td>HARBOUR</td><td>✅</td></tr>
-    <tr class="completed-row"><td>DA05</td><td>29 Mar 2026</td><td>HARBOUR</td><td>✅</td></tr>
+    <tr class="completed-row"><td>G01</td><td>01 Mar 2026</td><td>HARBOUR</td><td>✅</td></tr>
+    <tr class="completed-row"><td>G02</td><td>08 Mar 2026</td><td>HARBOUR</td><td>✅</td></tr>
+    <tr class="completed-row"><td>G03</td><td>15 Mar 2026</td><td>HARBOUR</td><td>✅</td></tr>
+    <tr class="completed-row"><td>G04</td><td>22 Mar 2026</td><td>HARBOUR</td><td>✅</td></tr>
+    <tr class="completed-row"><td>G05</td><td>29 Mar 2026</td><td>HARBOUR</td><td>✅</td></tr>
 
-    <!-- SKIPPED: DA06–DA31 -->
-    <tr class="paused-row"><td colspan="4">⏸️ SEASON PAUSED DUE TO UNFORSEEN CIRCUMSTANCES — DA06 to DA31</td></tr>
+    <!-- SKIPPED: G06-G31 -->
+    <tr class="paused-row"><td colspan="4">⏸️ SEASON PAUSED DUE TO UNFORSEEN CIRCUMSTANCES — G06 to DA35</td></tr>
 
     <!-- UPCOMING: 11 games -->
-    <tr class="upcoming-row"><td>DA36</td><td>01 Nov 2026</td><td>DURBAN SOUTH BEACH-FRONT</td><td>⏳</td></tr>
-    <tr class="upcoming-row"><td>DA37</td><td>08 Nov 2026</td><td>DURBAN SOUTH BEACH-FRONT</td><td>⏳</td></tr>
-    <tr class="upcoming-row"><td>DA38</td><td>15 Nov 2026</td><td>DURBAN SOUTH BEACH-FRONT</td><td>⏳</td></tr>
-    <tr class="upcoming-row"><td>DA39</td><td>22 Nov 2026</td><td>DURBAN SOUTH BEACH-FRONT</td><td>⏳</td></tr>
-    <tr class="upcoming-row"><td>DA40</td><td>29 Nov 2026</td><td>DURBAN SOUTH BEACH-FRONT</td><td>⏳</td></tr>
-    <tr class="upcoming-row"><td>DA41</td><td>06 Dec 2026</td><td>DURBAN SOUTH BEACH-FRONT</td><td>⏳</td></tr>
+    <tr class="upcoming-row"><td>G36</td><td>01 Nov 2026</td><td>DURBAN SOUTH BEACH-FRONT</td><td>⏳</td></tr>
+    <tr class="upcoming-row"><td>G37</td><td>08 Nov 2026</td><td>DURBAN SOUTH BEACH-FRONT</td><td>⏳</td></tr>
+    <tr class="upcoming-row"><td>G38</td><td>15 Nov 2026</td><td>DURBAN SOUTH BEACH-FRONT</td><td>⏳</td></tr>
+    <tr class="upcoming-row"><td>G39</td><td>22 Nov 2026</td><td>DURBAN SOUTH BEACH-FRONT</td><td>⏳</td></tr>
+    <tr class="upcoming-row"><td>G40</td><td>29 Nov 2026</td><td>DURBAN SOUTH BEACH-FRONT</td><td>⏳</td></tr>
+    <tr class="upcoming-row"><td>G41</td><td>06 Dec 2026</td><td>DURBAN SOUTH BEACH-FRONT</td><td>⏳</td></tr>
 
     <!-- FINAL: DA42 -->
-    <tr class="final-row"><td><strong>DA42</strong></td><td><strong>13 Dec 2026</strong></td><td><strong>DURBAN SOUTH BEACH-FRONT</strong></td><td>🏆 FINAL</td></tr>
+    <tr class="final-row"><td><strong>G42</strong></td><td><strong>13 Dec 2026</strong></td><td><strong>DURBAN SOUTH BEACH-FRONT</strong></td><td>🏆 FINAL</td></tr>
     
         </tbody>
       </table></div>
@@ -1391,7 +1379,7 @@
         <table><thead><tr><th>DIRECT ACTION</th><th>RESULT</th><th>SCORERS</th><th>MOTM</th><th>LOCATION</th><th>INTEL</th></tr></thead>
         <tbody id="summary-tbody">
           <tr>
-          <th>DIRECT ACTION</th>
+          <th>GAME</th>
           <th>RESULT</th>
           <th>SCORERS</th>
           <th>MOTM</th>
@@ -1401,7 +1389,7 @@
       </thead>
       <tbody id="summary-tbody">
         
-        <!-- ===== COMPLETED: DA01–DA05 (5 games) ===== -->
+        <!-- ===== COMPLETED: G01–G05 (5 games) ===== -->
         <tr class="completed-row">
           <td><strong>DA01</strong></td>
           <td>2-1</td>
