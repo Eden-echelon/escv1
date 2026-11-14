@@ -1,4 +1,78 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Parables & Platters — Coming Soon">
+  <title>Parables &amp; Platters | Coming Soon</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; margin: 0; }
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: #fff;
+      color: #4A3B2C;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+    .coming-soon {
+      width: min(760px, 100%);
+      padding: clamp(42px, 8vw, 76px) 24px;
+      text-align: center;
+      background: linear-gradient(135deg, #FDF9F4, #FFFDFB);
+      border: 2px solid #E3C5A3;
+      box-shadow: 0 12px 36px rgba(74, 59, 44, .07);
+    }
+    .ornament {
+      color: #B68147;
+      font-size: 20px;
+      letter-spacing: 12px;
+      margin-bottom: 22px;
+    }
+    h1 {
+      margin: 0;
+      color: #6F5035;
+      font-size: clamp(2.2rem, 8vw, 4.5rem);
+      font-weight: 600;
+      letter-spacing: .12em;
+      line-height: 1.08;
+    }
+    p {
+      margin: 20px 0 0;
+      color: #786451;
+      font-family: Arial, sans-serif;
+      font-size: clamp(.72rem, 2vw, .9rem);
+      font-weight: 600;
+      letter-spacing: .18em;
+      line-height: 1.7;
+      text-transform: uppercase;
+    }
+    .bottom-ornament {
+      margin-top: 28px;
+      color: #B68147;
+      font-size: 18px;
+      letter-spacing: 8px;
+    }
+  </style>
+</head>
+<body>
+  <main class="coming-soon" role="status" aria-label="Coming soon">
+    <div class="ornament" aria-hidden="true">✦ ✦ ✦</div>
+    <h1>COMING SOON</h1>
+    <p>Parables &amp; Platters<br>Something delicious is on its way</p>
+    <div class="bottom-ornament" aria-hidden="true">✧ ✝ ✧</div>
+  </main>
+</body>
+</html>
+
+<!--
+ORIGINAL PARABLES & PLATTERS WEBSITE SOURCE
+Preserved below in full and temporarily commented out.
+Restore it by removing this archive comment when the site is ready to launch.
+
+<!DOCTYPE html>
 
 <html lang="en">
 
@@ -162,41 +236,6 @@
 
         }
 
-        .coming-soon-banner {
-            width: min(1120px, calc(100% - 64px));
-            margin: 170px auto 0;
-            padding: 22px 28px;
-            text-align: center;
-            background: linear-gradient(135deg, #FDF9F4, #FFFDFB);
-            border: 1.5px solid #E3C5A3;
-            box-shadow: 0 8px 24px rgba(74, 59, 44, 0.06);
-            position: relative;
-            z-index: 1;
-        }
-        .coming-soon-banner::before,
-        .coming-soon-banner::after {
-            content: "✦";
-            color: #B68147;
-            margin: 0 14px;
-        }
-        .coming-soon-banner strong {
-            display: inline-block;
-            color: #6F5035;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.65rem, 3vw, 2.35rem);
-            font-weight: 700;
-            letter-spacing: 3px;
-            line-height: 1.1;
-        }
-        .coming-soon-banner p {
-            margin-top: 8px;
-            color: #786451;
-            font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
         .menu-grid {
 
             display: grid;
@@ -205,7 +244,7 @@
             gap: 56px 44px;
             max-width: 1600px;
             width: 100%;
-            margin: 28px auto 70px auto;
+            margin: 190px auto 70px auto;
             padding: 0 32px;
 
         }
@@ -733,14 +772,14 @@
         }
 
         @media (max-width: 840px) {
-            .coming-soon-banner { margin-top: 112px; width: calc(100% - 40px); padding: 20px 14px; }\n            .menu-grid { gap: 38px; margin-top: 28px; padding: 0 20px; }
+            .menu-grid { gap: 38px; margin-top: 170px; padding: 0 20px; }
             .side-controls { right: 16px; padding: 14px 10px; gap: 14px; }
             .nav-btn { width: 44px; height: 44px; }
         }
         @media (max-width: 640px) {
             .sacred-header { padding: 14px 4%; }
             .header-logo-link { width: 80px; height: 80px; }
-            .coming-soon-banner { margin-top: 108px; }\n            .menu-grid { gap: 32px; margin-top: 24px; }
+            .menu-grid { gap: 32px; margin-top: 150px; }
             .card-body { padding: 18px 16px 26px; }
             .item-title { font-size: 1.9rem; }
             .item-price { font-size: 1.5rem; padding: 4px 18px; }
@@ -750,7 +789,7 @@
             .guidance-badge { display: none; }
         }
         @media (max-width: 480px) {
-            .coming-soon-banner { width: calc(100% - 32px); margin-top: 108px; }\n            .coming-soon-banner p { font-size: 0.68rem; letter-spacing: 1px; }\n            .menu-grid { gap: 28px; margin-top: 24px; padding: 0 16px; }
+            .menu-grid { gap: 28px; margin-top: 130px; padding: 0 16px; }
             .order-cta { width: 100%; }
         }
     </style>
@@ -771,11 +810,6 @@
 </div>
 
 <div class="guidance-badge"><i class="fas fa-cross" style="color:#C29A6B;"></i> <span>✦ טוב־לחם ✦ | CASH ONLY | NATIONWIDE PICKUP</span></div>
-
-<section class="coming-soon-banner" role="status" aria-label="Coming soon announcement">
-    <strong>COMING SOON</strong>
-    <p>Something delicious is on its way</p>
-</section>
 
 <div class="menu-grid" id="dynamicMenuGrid"></div>
 
@@ -980,3 +1014,5 @@
 
 
 
+
+-->
