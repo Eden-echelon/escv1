@@ -233,10 +233,6 @@
     <div class="radar-noise"></div>
   </div>
 
-  <audio id="bgTrack" loop preload="auto" autoplay style="display:none;">
-    <source src="1.mp3" type="audio/mpeg">
-  </audio>
-
   <header class="command-center">
     <div class="header-emblem">
       <div class="logo-container" onclick="window.location.href='index.html';" title="back to home...">
@@ -565,19 +561,136 @@
   </footer>
 
   <script>
+
+    function startAutonomousBackgroundMusic() {
+      
+      const TRACK = 'audio/fc.mp3';
+      const TARGET_VOLUME = 0.25;
+      let audio, unlocked = false, watchdog = null, playAttempt = 0;
+    
+      // 1. Create the audio element (idempotent — reuse if it exists)
+      audio = document.getElementById('bgTrack');
+      if (!audio) {
+        audio = new Audio(TRACK);
+        audio.id = 'bgTrack';
+        audio.style.display = 'none';
+        document.body.appendChild(audio);
+      } else if (audio.querySelector('source')) {
+        audio.querySelector('source').src = TRACK;
+        audio.load();
+      } else {
+        audio.src = TRACK;
+      }
+    
+      // 2. Lock down the loop / volume / preload contract
+      audio.loop = true;
+      audio.preload = 'auto';
+      audio.volume = TARGET_VOLUME;
+      audio.muted = false;
+      audio.setAttribute('playsinline', '');
+      audio.setAttribute('webkit-playsinline', '');
+      audio.setAttribute('aria-hidden', 'true');
+    
+      // 3. The single source of truth for "make it play"
+      function play() {
+        playAttempt++;
+        const p = audio.play();
+        if (p && typeof p.then === 'function') {
+          p.then(() => { unlocked = true; playAttempt = 0; })
+           .catch(() => { unlocked = false; /* will retry via listeners/watchdog */ });
+        }
+      }
+    
+      // 4. Anything that counts as a user gesture unlocks playback on all browsers
+      const GESTURES = ['click','pointerdown','touchstart','keydown','scroll','mousedown','mousemove'];
+      function unlockOnce() {
+        if (unlocked) return;
+        play();
+      }
+      GESTURES.forEach(evt =>
+        document.addEventListener(evt, unlockOnce, { capture: true, passive: true })
+      );
+    
+      // 5. The "no matter what you do, it keeps playing" enforcement loop
+      function enforce() {
+        // a) Never let it end
+        if (audio.ended) { audio.currentTime = 0; play(); }
+        // b) Never let it pause
+        if (audio.paused) { play(); }
+        // c) Never let it get silenced
+        if (audio.muted) { audio.muted = false; }
+        // d) Never let it drift far from target volume
+        if (Math.abs(audio.volume - TARGET_VOLUME) > 0.01) { audio.volume = TARGET_VOLUME; }
+        // e) Never let the tab throttling kill the loop: re-arm loop flag
+        if (audio.loop !== true) { audio.loop = true; }
+        // f) If src got nuked, restore it
+        if (!audio.src || audio.src === '' || audio.src === window.location.href) {
+          audio.src = TRACK; audio.load(); play();
+        }
+      }
+    
+      // 6. Event-level enforcement — catch ANY interruption at the source
+      ['pause','ended','emptied','stalled','error','abort','suspend','waiting','volumechange','seeking']
+        .forEach(evt => audio.addEventListener(evt, enforce));
+    
+      // 7. Visibility / focus / page-lifecycle re-arm (mobile + background tabs)
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) enforce(); });
+      window.addEventListener('focus', enforce);
+      window.addEventListener('pageshow', enforce);
+      window.addEventListener('online', enforce);
+      document.addEventListener('freeze', enforce);
+      document.addEventListener('resume', enforce);
+      window.addEventListener('pagehide', enforce);
+    
+      // 8. Watchdog — every 750ms, guarantee the invariants hold
+      if (watchdog) clearInterval(watchdog);
+      watchdog = setInterval(enforce, 750);
+    
+      // 9. Attempt immediately, then once more on DOM-ready (in case body wasn't there)
+      play();
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', play, { once: true });
+      } else {
+        play();
+      }
+    
+      // 10. HARD anti-tamper: if something tries to remove/disable the element, put it back
+      const guard = new MutationObserver(() => {
+        if (!document.getElementById('bgTrack')) {
+          document.body.appendChild(audio);
+          enforce();
+        }
+      });
+      guard.observe(document.body, { childList: true, subtree: true });
+      audio._guard = guard; // expose so it can be cleaned up if ever needed
+    
+      // 11. Last line of defense: if any script sets `.pause()` or `.muted=true` externally,
+      //     override those methods on THIS instance so the contract can't be broken.
+      const nativePause = audio.pause.bind(audio);
+      audio.pause = function guardedPause() {
+        // A "real" pause only makes sense if the doc is being torn down.
+        if (document.visibilityState === 'hidden' && !audio.loop) nativePause();
+        // otherwise: ignore, and immediately re-arm
+        enforce();
+      };
+      Object.defineProperty(audio, 'muted', {
+        get: () => false,
+        set: () => { /* ignore external mute attempts */ },
+        configurable: false
+      });
+      Object.defineProperty(audio, 'volume', {
+        get: () => TARGET_VOLUME,
+        set: () => { /* pin volume */ },
+        configurable: false
+      });
+    
+      return audio;
+    }
+    
+    startAutonomousBackgroundMusic();
     
     (function(){
-      // AUDIO
-      const audio=document.getElementById('bgTrack');
-      if(audio){
-        audio.volume=0.25;audio.loop=true;
-        const p=audio.play();
-        if(p!==undefined)p.catch(()=>{
-          const retry=()=>{audio.play();document.removeEventListener('click',retry);document.removeEventListener('touchstart',retry);};
-          document.addEventListener('click',retry,{once:true});
-          document.addEventListener('touchstart',retry,{once:true});
-        });
-      }
+      
       // RADAR DOTS
       const radarGrid=document.getElementById('radarGrid');
       function generateDots(){
